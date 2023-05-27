@@ -26,7 +26,7 @@ jobs:
         tags: timtech4u/flaskapp:latest
 
     - name: Setup GCP Service Account
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v1
       with:
         version: 'latest'
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
