@@ -36,5 +36,5 @@ jobs:
         --region europe-west1 \
         --image timtech4u/flaskapp \
         --platform managed \
-        --allow-unauthenticated \
+        --allow-unauthenticated \ 
         --project ${{ secrets.GCP_PROJECT_ID }}
