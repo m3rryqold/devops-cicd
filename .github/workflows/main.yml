@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build, Push and Deploy Docker Image
 
 on:
   push:
@@ -25,16 +25,16 @@ jobs:
         push: true
         tags: timtech4u/flaskapp:latest
 
-    - id: 'auth'
+    - name: Login to Google Cloud
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.GCP_SA }}'
 
-    - name: Deploy
+    - name: Deploy to CloudRun
       run: |
-        gcloud run deploy helloworld \
+        gcloud run deploy flaskapp \
         --region europe-west1 \
-        --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/flaskapp \
+        --image timtech4u/flaskapp \
         --platform managed \
         --allow-unauthenticated \
         --project ${{ secrets.GCP_PROJECT_ID }}
