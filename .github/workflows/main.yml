@@ -25,13 +25,10 @@ jobs:
         push: true
         tags: timtech4u/flaskapp:latest
 
-    - name: Setup GCP Service Account
-      uses: google-github-actions/setup-gcloud@v1
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
       with:
-        version: 'latest'
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA }}
-        export_default_credentials: true
+        credentials_json: '${{ secrets.GCP_SA }}'
 
     - name: Deploy
       run: |
