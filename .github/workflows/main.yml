@@ -32,9 +32,4 @@ jobs:
 
     - name: Deploy to CloudRun
       run: |
-        gcloud run deploy flaskapp \
-        --region europe-west1 \
-        --image timtech4u/flaskapp \
-        --platform managed \
-        --allow-unauthenticated \ 
-        --project ${{ secrets.GCP_PROJECT_ID }}
+        gcloud run deploy flaskapp --region europe-west1 --image timtech4u/flaskapp --platform managed --allow-unauthenticated --project ${{ secrets.GCP_PROJECT_ID }}
