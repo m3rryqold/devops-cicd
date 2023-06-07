@@ -15,3 +15,9 @@ spec:
     helm:
       valueFiles:
         - https://storage.cloud.google.com/starburn-bucket/cfg-values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
