@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: saaspodinfo-git
+  namespace: argocd
+spec:
+  project: default  
+  destination:
+    namespace: cfg  #update namespace name if you wish
+    name: in-cluster   #update cluster name if its different
+  source:
+    repoURL: 'https://github.com/m3rryqold/cfghelm.git'  #replace with your username
+    path: gcp
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        #- https://storage.cloud.google.com/helm-secure/charts/values/values.yaml       #any custom value file you want to apply.
+        #- https://storage.googleapis.com/sampleargo/cfghelm_gcp_stg-values.yaml
+        - values.yaml
