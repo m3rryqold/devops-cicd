@@ -16,4 +16,4 @@ spec:
       valueFiles:
         #- https://storage.cloud.google.com/helm-secure/charts/values/values.yaml       #any custom value file you want to apply.
         #- https://storage.googleapis.com/sampleargo/cfghelm_gcp_stg-values.yaml
-        - values.yaml
+        - https://github.com/m3rryqold/devops-cicd/blob/main/argocd_apps/cfg/values.yaml
