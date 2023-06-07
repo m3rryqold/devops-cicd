@@ -7,7 +7,7 @@ spec:
   project: default  
   destination:
     namespace: cfg  #update namespace name if you wish
-    name: in-cluster   #update cluster name if its different
+    server: https://kubernetes.default.svc
   source:
     repoURL: 'https://github.com/m3rryqold/cfghelm.git'  #replace with your username
     path: gcp
@@ -16,4 +16,4 @@ spec:
       valueFiles:
         #- https://storage.cloud.google.com/helm-secure/charts/values/values.yaml       #any custom value file you want to apply.
         #- https://storage.googleapis.com/sampleargo/cfghelm_gcp_stg-values.yaml
-        - https://github.com/m3rryqold/devops-cicd/blob/main/argocd_apps/cfg/values.yaml
+        - https://storage.cloud.google.com/starburn-bucket/cfg-values.yaml
