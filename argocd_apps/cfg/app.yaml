@@ -12,6 +12,10 @@ spec:
     repoURL: 'https://github.com/m3rryqold/cfghelm.git'  #replace with your username
     path: gcp
     targetRevision: HEAD
+  helm:
+    valueFiles:
+      - /tmp/values.yaml
+  syncPolicy:
     automated:
       prune: true
       selfHeal: true
