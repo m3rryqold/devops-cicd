@@ -21,26 +21,3 @@ spec:
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-  podSpecPatch: |-
-    containers:
-      - name: gcs-downloader
-        image: google/cloud-sdk:latest
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            gcloud auth activate-service-account --key-file=/var/secrets/cfg-secret/key.json
-            gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp/values.yaml
-        volumeMounts:
-          - name: cfg-secret
-            mountPath: /var/secrets/cfg-secret
-            readOnly: true
-          - name: values-file
-            mountPath: /tmp/values.yaml
-    volumes:
-      - name: cfg-secret
-        secret:
-          secretName: cfg-secret
-          defaultMode: 420
-      - name: values-file
-        emptyDir: {}
