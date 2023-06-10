@@ -12,37 +12,19 @@ spec:
     repoURL: 'https://github.com/m3rryqold/cfghelm.git'  #replace with your username
     path: gcp
     targetRevision: HEAD
-  syncPolicy:
+    helm:
+      valueFiles:
+      - command: ["/bin/sh", "-c", "gcloud auth activate-service-account --key-file /var/secrets/cfg-secret/key.json && gsutil cat gs://bucket-zero1/cfghelm_gcp_stg-values.yaml"]
     automated:
       prune: true
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
-  podSpecPatch: |-
-    - op: add
-      path: /spec/template/spec/containers/-
-      value:
-        name: gcs-downloader
-        image: google/cloud-sdk:latest
-        command:
-          - "/bin/bash"
-          - "-c"
-          - |
-            gcloud auth activate-service-account --key-file=/secrets/key.json
-            gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp/values.yaml
-        volumeMounts:
-          - name: cfg-key
-            mountPath: /secrets
-            readOnly: true
-          - name: values-file
-            mountPath: /tmp/values.yaml
-        env:
-          - name: GOOGLE_APPLICATION_CREDENTIALS
-            value: /secrets/key.json
   volumes:
-    - name: cfg-key
+    - name: cfg-secret
       secret:
         secretName: cfg-secret
-        defaultMode: 420
-    - name: values-file
-      emptyDir: {}
+  volumeMounts:
+    - name: cfg-secret
+      mountPath: /var/secrets/cfg-secret
+      subPath: key.json
