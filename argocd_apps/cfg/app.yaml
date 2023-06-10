@@ -13,8 +13,6 @@ spec:
     path: gcp
     targetRevision: HEAD
     helm:
-      valueFiles:
-      - /dev/stdin
       values: |
         {{- $values := `gsutil cat gs://bucket-zero1/cfghelm_gcp_stg-values.yaml --service-account=/secrets/key.json` -}}
         {{- $values }}
