@@ -14,10 +14,18 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        - https://storage.cloud.google.com/bucket-zero1/cfghelm_gcp_stg-values.yaml?authuser=1
+      - /dev/stdin
+      values: |
+        {{- $values := `gsutil cat gs://bucket-zero1/cfghelm_gcp_stg-values.yaml --service-account=/secrets/key.json` -}}
+        {{- $values }}
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
     - CreateNamespace=true
+  volumes:
+    - name: cfg-key
+      secret:
+        secretName: cfg-secret
+        defaultMode: 420
