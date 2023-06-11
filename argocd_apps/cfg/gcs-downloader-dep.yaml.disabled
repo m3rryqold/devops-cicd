@@ -22,13 +22,13 @@ spec:
             - "-c"
             - |
               gcloud auth activate-service-account --key-file=/var/secrets/cfg-secret/key.json
-              gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp/values.yaml
+              gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp
           volumeMounts:
             - name: cfg-secret
               mountPath: /var/secrets/cfg-secret
               readOnly: true
             - name: values-file
-              mountPath: /tmp/values.yaml
+              mountPath: /tmp    
       volumes:
         - name: cfg-secret
           secret:
