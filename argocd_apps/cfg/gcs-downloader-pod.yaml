@@ -29,7 +29,6 @@ spec:
               readOnly: true
             - name: values-file
               mountPath: /tmp/values.yaml
-      restartPolicy: OnFailure
       volumes:
         - name: cfg-secret
           secret:
