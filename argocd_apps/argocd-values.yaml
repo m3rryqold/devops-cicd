@@ -8,52 +8,6 @@ controller:
         - "-c"
         - |
           gcloud auth activate-service-account --key-file=/var/secrets/cfg-secret/key.json
-          gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /home/argocd
-      volumeMounts:
-        - name: cfg-secret
-          mountPath: /var/secrets/cfg-secret
-          readOnly: true
-        - name: values-file
-          mountPath: /home/argocd
-  # extraContainers:
-  #   - name: gcs-downloader
-  #     image: google/cloud-sdk:latest
-  #     imagePullPolicy: IfNotPresent
-  #     command:
-  #       - "/bin/bash"
-  #       - "-c"
-  #       - |
-  #         gcloud auth activate-service-account --key-file=/var/secrets/cfg-secret/key.json
-  #         gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp/values.yaml
-  #     volumeMounts:
-  #       - name: cfg-secret
-  #         mountPath: /var/secrets/cfg-secret
-  #         readOnly: true
-  #       - name: values-file
-  #         mountPath: /tmp/values.yaml
-  volumeMounts:
-    - name: cfg-secret
-      mountPath: /var/secrets/cfg-secret
-      readOnly: true
-    - name: values-file
-      mountPath: /home/argocd
-  volumes:
-    - name: cfg-secret
-      secret:
-        secretName: cfg-secret
-        defaultMode: 420
-    - name: values-file
-      emptyDir: {}
-repoServer:
-  initContainers: 
-    - name: gcs-downloader
-      image: google/cloud-sdk:latest
-      imagePullPolicy: IfNotPresent
-      command:
-        - "/bin/bash"
-        - "-c"
-        - |
-          gcloud auth activate-service-account --key-file=/var/secrets/cfg-secret/key.json
           gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp
       volumeMounts:
         - name: cfg-secret
@@ -61,22 +15,14 @@ repoServer:
           readOnly: true
         - name: values-file
           mountPath: /tmp
-  # extraContainers:
-  #   - name: gcs-downloader
-  #     image: google/cloud-sdk:latest
-  #     imagePullPolicy: IfNotPresent
-  #     command:
-  #       - "/bin/bash"
-  #       - "-c"
-  #       - |
-  #         gcloud auth activate-service-account --key-file=/var/secrets/cfg-secret/key.json
-  #         gsutil cp gs://bucket-zero1/cfghelm_gcp_stg-values.yaml /tmp/values.yaml
-  #     volumeMounts:
-  #       - name: cfg-secret
-  #         mountPath: /var/secrets/cfg-secret
-  #         readOnly: true
-  #       - name: values-file
-  #         mountPath: /tmp/values.yaml
+  extraContainers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80 
+      volumeMounts:
+        - name: values-file
+          mountPath: /usr/share/nginx/html
   volumeMounts:
     - name: cfg-secret
       mountPath: /var/secrets/cfg-secret

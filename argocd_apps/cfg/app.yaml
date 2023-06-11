@@ -14,7 +14,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        - /home/argocd/cfghelm_gcp_stg-values.yaml
+        - http://nginx-service.argocd.svc.cluster.local/cfghelm_gcp_stg-values.yaml
   syncPolicy:
     automated:
       prune: true
