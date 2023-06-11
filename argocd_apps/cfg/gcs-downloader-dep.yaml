@@ -36,3 +36,15 @@ spec:
             defaultMode: 420
         - name: values-file
           emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: values-service
+  namespace: argocd
+spec:
+  selector:
+    app.kubernetes.io/component: gcs-downloader
+  ports:
+    - protocol: TCP
+      port: 80
