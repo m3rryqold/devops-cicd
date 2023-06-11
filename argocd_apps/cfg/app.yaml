@@ -14,7 +14,7 @@ spec:
     targetRevision: HEAD
   helm:
     valueFiles:
-      - /tmp/values.yaml/cfghelm_gcp_stg-values.yaml
+    - /tmp/cfghelm_gcp_stg-values.yaml
   syncPolicy:
     automated:
       prune: true
