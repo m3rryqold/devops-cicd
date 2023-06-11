@@ -16,6 +16,7 @@ spec:
       containers:
         - name: gcs-downloader
           image: google/cloud-sdk:latest
+          imagePullPolicy: IfNotPresent
           command:
             - "/bin/bash"
             - "-c"
@@ -28,6 +29,7 @@ spec:
               readOnly: true
             - name: values-file
               mountPath: /tmp/values.yaml
+      restartPolicy: OnFailure
       volumes:
         - name: cfg-secret
           secret:
