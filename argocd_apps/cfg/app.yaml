@@ -14,7 +14,7 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        - https://storage.googleapis.com/bucket-zero1/cfghelm_gcp_stg-values.yaml
+        - /tmp/cfghelm_gcp_stg-values.yaml
   syncPolicy:
     automated:
       prune: true
