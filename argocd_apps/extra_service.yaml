@@ -1,21 +1,4 @@
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: nginx-config
-  namespace: argocd
-data:
-  default.conf: |
-    server {
-      listen 80;
-      server_name _;
-
-      location / {
-        root /home/argocd;
-        try_files $uri $uri/ /index.html;
-      }
-    }
----
-apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
