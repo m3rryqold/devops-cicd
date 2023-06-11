@@ -12,9 +12,9 @@ spec:
     repoURL: 'https://github.com/m3rryqold/cfghelm.git'  #replace with your username
     path: gcp
     targetRevision: HEAD
-  helm:
-    valueFiles:
-      - https://storage.googleapis.com/bucket-zero1/cfghelm_gcp_stg-values.yaml
+    helm:
+      valueFiles:
+        - https://storage.googleapis.com/bucket-zero1/cfghelm_gcp_stg-values.yaml
   syncPolicy:
     automated:
       prune: true
